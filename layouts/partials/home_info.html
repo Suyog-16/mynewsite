@@ -1,0 +1,22 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+   
+
+    <br>
+    
+    <img title="a title" alt="Alt text"src="https://allthatsinteresting.com/wordpress/wp-content/uploads/2024/01/miyamoto-bennosuke-featured.jpg">
+    <p style="font-family: 'Georgia', sans-serif; font-size: 12px; font-style: italic;">Utagawa Kuniyoshi's 'The Duel' (1612): Miyamoto Musashi vs. Sasaki Kojirō.</p>
+
+    <hr>
+    <hr>
+    <header class="entry-header">
+        <h2>{{ .Title | markdownify }}</h2>
+    </header>
+    <div class="entry-content">
+        {{ .Content | markdownify }}
+    </div>
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+    </footer>
+</article>
+{{- end -}}

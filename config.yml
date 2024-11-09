@@ -1,0 +1,46 @@
+baseURL : ""
+languageCode : en-us
+title : "Suyog"
+theme : PaperMod
+
+params:
+  homeInfoParams:
+    Title: "Hi,"
+    Content: I'm Suyog Ghimire, a second year Computer Engineering student,Here, I share insights and projects on machine learning, programming, and more. Dive into my blogs for tutorials and technical discussions aimed at making complex topics more accessible.
+  socialIcons:
+    - name: github
+      url: "https://github.com/Suyog-16"
+    - name: X
+      url: "https://twitter.com/__suyog__"
+    - name: linkedin
+      url: "https://linkedin.com/"
+
+
+       
+  ShowBreadCrumbs: True
+
+  ShowReadingTime: true
+
+  ShowShareButtons: true
+
+  ShowPostNavLinks: true
+
+  disableScrollToTop: false
+  
+ 
+menu :
+  main:
+     - identifier: archives
+       name : Archives
+       url: /archives/
+       weight: 30
+     - identifier: docs
+       name: Resume
+       url: https://example.org
+       weight: 30
+     - identifier: projects
+       name: Projects
+       url: "https://github.com/Suyog-16"
+       weight: 30
+
+ 
