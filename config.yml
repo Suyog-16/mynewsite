@@ -4,7 +4,7 @@ title : "Suyog"
 theme : PaperMod
 
 params:
-  mathjax : true
+  math: true
   homeInfoParams:
     Title: "Hi,"
     Content: I'm Suyog Ghimire, a second year Computer Engineering student,Here, I share insights and projects on machine learning, programming, and more. Dive into my blogs for tutorials and technical discussions aimed at making complex topics more accessible.
@@ -27,6 +27,9 @@ params:
   ShowPostNavLinks: true
 
   disableScrollToTop: false
+  showToc : true
+  ShowAuthor : true
+  enableSearch : true
   
  
 menu :
@@ -43,5 +46,9 @@ menu :
        name: Projects
        url: "https://github.com/Suyog-16"
        weight: 30
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 
- 
+mathjax: true
