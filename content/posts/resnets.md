@@ -9,12 +9,12 @@ author : "Suyog Ghimire"
 
 Deep convolutional neural networks have been around for a while and have completely revolutionized how we tackle image recognition task in computer vision. 
 When *AlexNet* came out in 2012 it revolutionized how we use CNN's as it was the first time we saw an 
-architecture with consecutive Convolutional Layers with significant improvement in training speed and performance which it did by leveraging deeper architecture and GPU accelaration.This **8 layer deep CNN** was one of first to have this kind of performance for a largescale image classification.
+architecture with consecutive Convolutional Layers with significant improvement in training speed and performance. This was achieved by leveraging deeper architecture and GPU accelaration.This **8 layer deep CNN** was one of first to have this kind of performance for a largescale image classification.
 
 In the following years we also got a new CNN model called *Visual Geometry Group(VGG)*, the primary objective of this model was to investigate the effect of increasing the depth of CNN
 on large-scale image recognition task. A 16 weight layer network **VGG-16** and a 19 weight layer network **VGG-19** were introduced with consisent 3x3 filters all across the network which simplified the network and improved performance.The simplified 3x3 filter structure is still extensively used and popular among researchers.
 
-These architectures tell us that deeper networks have improved performance in many tasks. this statement gives rise to an question every one might have thought.
+These architectures demonstrate that deeper networks often perform better. However,this raises an important question:
 
 ### *Does deeper always mean better?*
 
@@ -23,15 +23,15 @@ computationally expensive,but the tradeoff wouldn't be so bad, so why not?
 
 
 ### *Why is it not OK to just add more layers?*
-
-There are many problems to adding depth and not just computational which have been mentioned in the ResNet paper titled *Deep Residual Learning for Image Recognition*
+Adding more layers introduces challenges beyond computational cost,such as gradient vanishing and degradation problems,as discussed
+in the ResNet paper titled *Deep Residual Learning for Image Recognition*
 
 
 ## 1) Vanishing/Exploding gradients
+ - **Vanishing Gradient** : In deep networks,repeated multiplication of small values(activation function derivatives) causes gradients to shrink exponentially. This slows down learning and makes convergence difficult
 
-The vanishing gradient problem occurs because, in deep networks,repeated multiplication of small numbers(activation functions derivatives) causes gradients to shrink exponetially,leading to slow learning/convergence.
-Conversly,when values become too large due to higher value weights,gradients explode,making traning unstable.
-<br>
+ - **Exploding Gradient** : When values become too large due to high-weight values, gradients explode,making training unstable.
+
 
 
 <div style="display: flex; justify-content: center; gap: 20px;">
@@ -48,7 +48,7 @@ Conversly,when values become too large due to higher value weights,gradients exp
 This problem has been largely addressed by applying various techniques like normalized initialization and intermediate normalization layers(*Batch Normalization*)
 
 ## 2) Degradation Problem
-As we stack more and more of the convolutional or non linear layers we execpt the accuracy of the model to increase as well but, the accuracy saturates then starts to degrade after a certain point and it is not caused by *overfitting* and adding more layers to that cause the error% to increase as well
+As we stack more and more of the convolutional or non linear layers we execpt the accuracy of the model to increase as well but, the accuracy saturates then starts to degrade after a certain point and it is not caused by *overfitting* and adding more layers to that causes the error% to increase as well
 
 **Example**
 Lets say we have a hypothetical task at hand of classifying image.we build a simple shallow CNN network.
@@ -114,7 +114,8 @@ class ResidualBlock(nn.Module):
 
 Lastly, these identity connections introduce no new parameters to the network architecture,hence it will not add any computational burden.
 
-Hence, Residual connections allow us to design deeper networks in order to deal with much complicated problems and task.
+Residual connections enable deep networks to learn effectively without performance degradation. By preserving identity mappings,ResNets solve vansihing gradients and allow for much deeper architecture. Today,ResNets are widely used in computer vision task and their principles continue to influence newer architectures like Transformer models in deep learning.
+
 ## References
 
 1. He, K., Zhang, X., Ren, S., & Sun, J. (2016). *Deep Residual Learning for Image Recognition*. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 770-778. [Link](https://arxiv.org/abs/1512.03385)

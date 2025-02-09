@@ -10,7 +10,7 @@
 <meta name="description" content="Introduction
 Deep convolutional neural networks have been around for a while and have completely revolutionized how we tackle image recognition task in computer vision.
 When AlexNet came out in 2012 it revolutionized how we use CNN&rsquo;s as it was the first time we saw an
-architecture with consecutive Convolutional Layers with significant improvement in training speed and performance which it did by leveraging deeper architecture and GPU accelaration.This 8 layer deep CNN was one of first to have this kind of performance for a largescale image classification.">
+architecture with consecutive Convolutional Layers with significant improvement in training speed and performance. This was achieved by leveraging deeper architecture and GPU accelaration.This 8 layer deep CNN was one of first to have this kind of performance for a largescale image classification.">
 <meta name="author" content="Suyog Ghimire">
 <link rel="canonical" href="http://localhost:1313/posts/resnets/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.886eb71e0f8349a74ae0f4e174d9fc60b6a62cfa7d0673ca8fbfd0a0fce38687.css" integrity="sha256-iG63Hg&#43;DSadK4PThdNn8YLamLPp9BnPKj7/QoPzjhoc=" rel="preload stylesheet" as="style">
@@ -193,19 +193,25 @@ architecture with consecutive Convolutional Layers with significant improvement 
   <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
 <p>Deep convolutional neural networks have been around for a while and have completely revolutionized how we tackle image recognition task in computer vision.
 When <em>AlexNet</em> came out in 2012 it revolutionized how we use CNN&rsquo;s as it was the first time we saw an
-architecture with consecutive Convolutional Layers with significant improvement in training speed and performance which it did by leveraging deeper architecture and GPU accelaration.This <strong>8 layer deep CNN</strong> was one of first to have this kind of performance for a largescale image classification.</p>
+architecture with consecutive Convolutional Layers with significant improvement in training speed and performance. This was achieved by leveraging deeper architecture and GPU accelaration.This <strong>8 layer deep CNN</strong> was one of first to have this kind of performance for a largescale image classification.</p>
 <p>In the following years we also got a new CNN model called <em>Visual Geometry Group(VGG)</em>, the primary objective of this model was to investigate the effect of increasing the depth of CNN
 on large-scale image recognition task. A 16 weight layer network <strong>VGG-16</strong> and a 19 weight layer network <strong>VGG-19</strong> were introduced with consisent 3x3 filters all across the network which simplified the network and improved performance.The simplified 3x3 filter structure is still extensively used and popular among researchers.</p>
-<p>These architectures tell us that deeper networks have improved performance in many tasks. this statement gives rise to an question every one might have thought.</p>
+<p>These architectures demonstrate that deeper networks often perform better. However,this raises an important question:</p>
 <h3 id="does-deeper-always-mean-better"><em>Does deeper always mean better?</em><a hidden class="anchor" aria-hidden="true" href="#does-deeper-always-mean-better">#</a></h3>
 <p>When we look at it, adding more layer seem advantageous, more depth more complex features the model understands. Why stop at 16 layers or 19 layers? can&rsquo;t we add more? ofcourse the model will have more parameters to learn and might be
 computationally expensive,but the tradeoff wouldn&rsquo;t be so bad, so why not?</p>
 <h3 id="why-is-it-not-ok-to-just-add-more-layers"><em>Why is it not OK to just add more layers?</em><a hidden class="anchor" aria-hidden="true" href="#why-is-it-not-ok-to-just-add-more-layers">#</a></h3>
-<p>There are many problems to adding depth and not just computational which have been mentioned in the ResNet paper titled <em>Deep Residual Learning for Image Recognition</em></p>
+<p>Adding more layers introduces challenges beyond computational cost,such as gradient vanishing and degradation problems,as discussed
+in the ResNet paper titled <em>Deep Residual Learning for Image Recognition</em></p>
 <h2 id="1-vanishingexploding-gradients">1) Vanishing/Exploding gradients<a hidden class="anchor" aria-hidden="true" href="#1-vanishingexploding-gradients">#</a></h2>
-<p>The vanishing gradient problem occurs because, in deep networks,repeated multiplication of small numbers(activation functions derivatives) causes gradients to shrink exponetially,leading to slow learning/convergence.
-Conversly,when values become too large due to higher value weights,gradients explode,making traning unstable.
-<br></p>
+<ul>
+<li>
+<p><strong>Vanishing Gradient</strong> : In deep networks,repeated multiplication of small values(activation function derivatives) causes gradients to shrink exponentially. This slows down learning and makes convergence difficult</p>
+</li>
+<li>
+<p><strong>Exploding Gradient</strong> : When values become too large due to high-weight values, gradients explode,making training unstable.</p>
+</li>
+</ul>
 <div style="display: flex; justify-content: center; gap: 20px;">
   <figure style="text-align: center;">
     <img src="/images/vanishing_gradient.png" alt="Vanishing Gradient" width="500">
@@ -218,7 +224,7 @@ Conversly,when values become too large due to higher value weights,gradients exp
 </div>
 <p>This problem has been largely addressed by applying various techniques like normalized initialization and intermediate normalization layers(<em>Batch Normalization</em>)</p>
 <h2 id="2-degradation-problem">2) Degradation Problem<a hidden class="anchor" aria-hidden="true" href="#2-degradation-problem">#</a></h2>
-<p>As we stack more and more of the convolutional or non linear layers we execpt the accuracy of the model to increase as well but, the accuracy saturates then starts to degrade after a certain point and it is not caused by <em>overfitting</em> and adding more layers to that cause the error% to increase as well</p>
+<p>As we stack more and more of the convolutional or non linear layers we execpt the accuracy of the model to increase as well but, the accuracy saturates then starts to degrade after a certain point and it is not caused by <em>overfitting</em> and adding more layers to that causes the error% to increase as well</p>
 <p><strong>Example</strong>
 Lets say we have a hypothetical task at hand of classifying image.we build a simple shallow CNN network.</p>
 <img src="/images/base_model.png" alt="base model" width="1200">
@@ -268,7 +274,7 @@ $$f(x) = H(x) - x$$</p>
 </span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>relu(out)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> out
 </span></span></code></pre></div><p>Lastly, these identity connections introduce no new parameters to the network architecture,hence it will not add any computational burden.</p>
-<p>Hence, Residual connections allow us to design deeper networks in order to deal with much complicated problems and task.</p>
+<p>Residual connections enable deep networks to learn effectively without performance degradation. By preserving identity mappings,ResNets solve vansihing gradients and allow for much deeper architecture. Today,ResNets are widely used in computer vision task and their principles continue to influence newer architectures like Transformer models in deep learning.</p>
 <h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
 <ol>
 <li>
