@@ -4,6 +4,8 @@ title : "Suyog"
 theme : PaperMod
 
 params:
+
+
   math: true
   homeInfoParams:
     Title: "Hi,"

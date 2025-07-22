@@ -6,14 +6,51 @@
     <description>Recent content in Posts on Suyog</description>
     <generator>Hugo -- 0.123.7</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Feb 2025 21:13:03 +0545</lastBuildDate>
+    <lastBuildDate>Wed, 28 May 2025 21:06:20 +0545</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Can Byte-Latent Transformers effectively model Nepali text and outperform token-based models in low-resource setting</title>
+      <link>http://localhost:1313/posts/byte-latent/</link>
+      <pubDate>Wed, 28 May 2025 21:06:20 +0545</pubDate>
+      <guid>http://localhost:1313/posts/byte-latent/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Do Scaling Laws Hold for Small Models? An Empirical Exploration</title>
+      <link>http://localhost:1313/posts/scaling_laws/</link>
+      <pubDate>Wed, 28 May 2025 21:06:20 +0545</pubDate>
+      <guid>http://localhost:1313/posts/scaling_laws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Understanding Transformer Architecture from First Principles: A Detailed Exploration</title>
+      <link>http://localhost:1313/posts/transformer/</link>
+      <pubDate>Mon, 28 Apr 2025 21:06:20 +0545</pubDate>
+      <guid>http://localhost:1313/posts/transformer/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Transformer Architecture is the heart of modern AI models, LLMs from ChatGPT to LLama to Gemini all of them are built around transformer architecture.The transformer architecture was introduced in the paper where it was first introduced for the sole purpose of language translation task&lt;/p&gt;
+&lt;h2 id=&#34;architecture-overview&#34;&gt;Architecture Overview&lt;/h2&gt;
+&lt;h2 id=&#34;positional-encoding&#34;&gt;Positional Encoding&lt;/h2&gt;
+&lt;h2 id=&#34;self-attention-mechanism&#34;&gt;Self-Attention Mechanism&lt;/h2&gt;
+&lt;h2 id=&#34;multi-head-attention&#34;&gt;Multi-Head Attention&lt;/h2&gt;
+&lt;h3 id=&#34;layer-normalization&#34;&gt;Layer Normalization&lt;/h3&gt;
+&lt;h3 id=&#34;residual-connection&#34;&gt;Residual Connection&lt;/h3&gt;
+&lt;h3 id=&#34;linear-layer&#34;&gt;Linear Layer&lt;/h3&gt;
+&lt;h2 id=&#34;toy-example&#34;&gt;Toy Example&lt;/h2&gt;</description>
+    </item>
     <item>
       <title>ResNets Explained - Solving Deep Network Degradation with Residual Learning</title>
       <link>http://localhost:1313/posts/resnets/</link>
       <pubDate>Mon, 03 Feb 2025 21:13:03 +0545</pubDate>
       <guid>http://localhost:1313/posts/resnets/</guid>
+<<<<<<< HEAD
       <description>Introduction Deep convolutional neural networks have been around for a while and have completely revolutionized how we tackle image recognition task in computer vision. When AlexNet came out in 2012 it revolutionized how we use CNN&amp;rsquo;s as it was the first time we saw an architecture with consecutive Convolutional Layers with significant improvement in training speed and performance. This was achieved by leveraging deeper architecture and GPU accelaration.This 8 layer deep CNN was one of first to have this kind of performance for a largescale image classification.</description>
+=======
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Deep convolutional neural networks have been around for a while and have completely revolutionized how we tackle image recognition task in computer vision.
+When &lt;em&gt;AlexNet&lt;/em&gt; came out in 2012 it revolutionized how we use CNN&amp;rsquo;s as it was the first time we saw an
+architecture with consecutive Convolutional Layers with significant improvement in training speed and performance. This was achieved by leveraging deeper architecture and GPU accelaration.This &lt;strong&gt;8 layer deep CNN&lt;/strong&gt; was one of first to have this kind of performance for a largescale image classification.&lt;/p&gt;</description>
+>>>>>>> ab850161c01543e0125003ee96cf3fdd3a89f460
     </item>
   </channel>
 </rss>
