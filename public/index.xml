@@ -6,8 +6,22 @@
     <description>Recent content on Suyog</description>
     <generator>Hugo -- 0.125.7</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Feb 2025 21:13:03 +0545</lastBuildDate>
+    <lastBuildDate>Mon, 28 Apr 2025 21:06:20 +0545</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multimodal AI Explained: From Foundation Models to Generalist Agents</title>
+      <link>http://localhost:1313/posts/multimodal/</link>
+      <pubDate>Mon, 28 Apr 2025 21:06:20 +0545</pubDate>
+      <guid>http://localhost:1313/posts/multimodal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Understanding Transformer Architecture from First Principles: A Detailed Exploration</title>
+      <link>http://localhost:1313/posts/transformer/</link>
+      <pubDate>Mon, 28 Apr 2025 21:06:20 +0545</pubDate>
+      <guid>http://localhost:1313/posts/transformer/</guid>
+      <description>Introduction Transformer Architecture lies at the heart of modern AI models. Nearly all the state-of-the-art large language models(LLMs) like ChatGPT, LLaMa and Gemini ,all of them are built upon the transformer architecture.The transformer architecture was introduced in the paper Attention is all you need 1. Although it is used everywhere these days,it was first introduced for the purpose of language translation but then it was quickly generalized to other task as well.</description>
+    </item>
     <item>
       <title>ResNets Explained - Solving Deep Network Degradation with Residual Learning</title>
       <link>http://localhost:1313/posts/resnets/</link>

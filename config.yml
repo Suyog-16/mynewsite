@@ -33,6 +33,15 @@ params:
   ShowAuthor : true
   enableSearch : true
   
+  assets:
+    favicon: "android-chrome-192x192.png"       # fallback for browser tab (.ico can be used if available)
+    favicon16x16: "android-chrome-192x192.png"  # scaled down by browser automatically
+    favicon32x32: "android-chrome-192x192.png"  # scaled down by browser automatically
+    apple_touch_icon: "android-chrome-512x512.png"
+    safari_pinned_tab: "android-chrome-512x512.png"  # works as a simple fallback
+    theme_color: "#ffffff"
+    msapplication_TileColor: "#ffffff"
+  
  
 menu :
   main:
