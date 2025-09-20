@@ -64,6 +64,15 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body);"></script>
 
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 
 </head>
 
@@ -145,7 +154,7 @@
     <h1 class="post-title entry-hint-parent">
       Understanding Transformer Architecture from First Principles: A Detailed Exploration
     </h1>
-    <div class="post-meta"><span title='2025-04-28 21:06:20 +0545 +0545'>April 28, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Suyog Ghimire
+    <div class="post-meta"><span title='2025-04-28 21:06:20 +0545 +0545'>April 28, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Suyog Ghimire
 
 </div>
   </header> <div class="toc">
@@ -170,7 +179,11 @@
                 <li>
                     <a href="#architecture-overview" aria-label="Architecture Overview">Architecture Overview</a></li>
                 <li>
-                    <a href="#positional-encoding" aria-label="Positional Encoding">Positional Encoding</a></li>
+                    <a href="#positional-encoding" aria-label="Positional Encoding">Positional Encoding</a><ul>
+                        
+                <li>
+                    <a href="#" aria-label="Why does this intensity pattern matters?">Why does this intensity pattern matters?</a></li></ul>
+                </li>
                 <li>
                     <a href="#self-attention-mechanism" aria-label="Self-Attention Mechanism">Self-Attention Mechanism</a></li>
                 <li>
@@ -200,7 +213,8 @@
 <p>Before transformers, many natural language processing task were done using sequence models like recurrent neural network(RNN&rsquo;s).RNNs had major flaws due to which it was not good enough for most language-based applications.Lets discuss their flaws and how transformer massively improved upon them</p>
 <h3 id="1-vanishingexploding-gradient-problem">1) Vanishing/Exploding Gradient problem<a hidden class="anchor" aria-hidden="true" href="#1-vanishingexploding-gradient-problem">#</a></h3>
 <p>One of the major problems with RNNs were the vanishing/exploding gradients.
-<img src="/images/rnn.webp" alt="rnn" width="1200"></p>
+<img src="/images/rnn.webp" alt="Description" 
+style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px;"></p>
 <center><i>Unfolding of Recurrent Neural Network</i></center>
 <p><em>Credit: <a href="https://dennybritz.com/posts/wildml/recurrent-neural-networks-tutorial-part-1/">dennybritz</a>.</em></p>
 <p>The above diagram shows an RNN being unfolded/unrolled across time steps.We essentially have a full network for all the input sequence.For a sequence of 10 words/tokens the network would be unrolled into a 10 layer network one for each time step.This is fine for smaller sequences but for longer input sequences,the network becomes very deep</p>
@@ -210,8 +224,57 @@
 <br>
 <p>The correct completion is &ldquo;Nepali&rdquo; but for the model to correctly predict it. It needs to store the context word &ldquo;Nepal&rdquo; which appears 15-20 tokens before the target, diluted by many intermediate states. without the context of &ldquo;Nepal&rdquo; the model has no clue to guess the target</p>
 <h3 id="3-sequential-processing">3) Sequential Processing<a hidden class="anchor" aria-hidden="true" href="#3-sequential-processing">#</a></h3>
+<p>RNN&rsquo;s rely on sequential processing, meaning the <b>next output at each step depends on the previous step.</b> Mathematically, for seqeunce of $x_1, x_2, x_3, \ldots, x_n$</p>
+<p>$$ h_{t} = f(h_{t-1},x_{t}) $$
+where hidden state at time step $t$ depends upon previous step. we cant calculate $h_t$ without calculating $h_{t-1}$ first. Unlike CNNs or Transformers where many computations could occur simultaneously. RNNs cannot make use of parallel computations, they are stuck in a chain-like process.
+<br>
+<br>
+Because of these limitations it was of no use when it came to handling large seqential data, this makes them slow,ineffective and limited. These problems are completely solved in modern architectures like Transformers</p>
 <h2 id="architecture-overview">Architecture Overview<a hidden class="anchor" aria-hidden="true" href="#architecture-overview">#</a></h2>
+<p>Lets look at the Overall architecture of Transformer model and go into each section and dicuss that in detailed later in the blog</p>
+<p><img src="/images/transformers/transformer.png" alt="Description" 
+style="width: 100%; height: 800px; object-fit: cover; border-radius: 8px;"></p>
+<p><sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup><center><i>Transformer Architecture</i></center></p>
+<p>Transformer architecture consist of two main components: <strong>encoder</strong> and a <strong>decoder</strong>. The encoder takes in an input sequence(tokens) and converts it into numerical vectors that captures its meaning and relationship with each other. The decoder uses these encoded representations along with the tokens it has already generated to provide us with a probabilty distribution of possible next tokens at each time step.</p>
+<p>We will get into the details of each and every step later in this blog.</p>
 <h2 id="positional-encoding">Positional Encoding<a hidden class="anchor" aria-hidden="true" href="#positional-encoding">#</a></h2>
+<p>Unlike CNNs and RNNs, Transformers which uses self attention  is <strong>Permutation Invaraint</strong> meaning a it doesnt care about what order the tokens came in. It treats them as a bag of vector. For example a input sequence &quot; <strong>Ram pushed Hari</strong>&quot; and &ldquo;<strong>Hari pushed Ram</strong>&rdquo; would look the same to the transformer without positional information.</p>
+<p>To address this we inject position information to the input sequence embeddings before feeding them to the transformer layers.</p>
+<p>We want the model to identify which tokens are nearer and which are futher distant. <strong>Note</strong>: This</p>
+<p>Each input token is first mapped to a vector embedding of dimension 512(in the paper)
+<img src="/images/transformers/vector.png" alt="Description" 
+style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;"></p>
+<p>Above figure shows how each input token is mapped to a vector of a fixed dimension but it lacks positional information.Its solution lies in adding another vector <strong>positional encoding vector</strong> of same dimension(512) to the original vector embedding.</p>
+<p>$$ E_{final}(pos,token) = E_{word}(token) + PE(pos)$$</p>
+<p>Where:
+<br></p>
+<ul>
+<li>$E_{word}(token)$ is the 512 dimensional token embedding(as shown in the diagram)
+<br></li>
+<li>$PE(pos)$ is the positonal encoding vector for position $pos$</li>
+</ul>
+<p>To calculate this we have positonal encoding fourmula as:
+$$PE(pos, 2i) = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}})$$</p>
+<p>$$PE(pos, 2i+1) = cos(\frac {pos}{10000^{\frac{2i}{d_{model}}}})$$</p>
+<p>Where:
+<br></p>
+<ul>
+<li>$pos$ = token position(0,1,2&hellip;.)
+<br></li>
+<li>$i$ = dimension index(0 to 255 for 512-dimension embeddings)
+<br></li>
+<li>$d_{model}$ = embedding dimesion(512)</li>
+</ul>
+<p>So odd dimensions(0,2,4,&hellip;) takes the cosine fourmula whereas even dimension(1,3,5,..) takes sine fourmula</p>
+<p>Now the question aries on how does adding the positional encodings generated by these trignometric fourmula help the model gain positional information on input sequence.</p>
+<p><img src="/images/transformers/positional_encoding.webp" alt="Description" 
+style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;"></p>
+<p><em>Credit: <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/">kazemnejad&rsquo;s blog</a>.</em></p>
+<p>In the above chart were X-axis represents encoding dimensions and Y-axis represents different position in sequence,a particular cell&rsquo;s intensity is the sine/cosine value.
+we can clearly see a visible pattern in this chart the left side <strong>High intensity changes</strong> creates a checkerboard pattern and on the right side <strong>Smooth intensity changes</strong>creates a smooth gradients.</p>
+<center><h3>Why does this intensity pattern matters?</h3></center>
+<p><strong>Rapid color changes</strong> means that model can distinguish between nearby positions and <strong>smooth color changes</strong> means model understands broad position relationships, with this each position gets a unique fingerprint.</p>
+<p>Different frequencies of sine/cosine functions create the intensity variations you see, giving each position a unqiue pattenr across all dimensions</p>
 <h2 id="self-attention-mechanism">Self-Attention Mechanism<a hidden class="anchor" aria-hidden="true" href="#self-attention-mechanism">#</a></h2>
 <h2 id="multi-head-attention">Multi-Head Attention<a hidden class="anchor" aria-hidden="true" href="#multi-head-attention">#</a></h2>
 <h3 id="layer-normalization">Layer Normalization<a hidden class="anchor" aria-hidden="true" href="#layer-normalization">#</a></h3>
@@ -223,7 +286,7 @@
 <hr>
 <ol>
 <li id="fn:1">
-<p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). <em>Attention is all you need</em>. In Advances in Neural Information Processing Systems (NeurIPS).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). <em>Attention is all you need</em>. In Advances in Neural Information Processing Systems (NeurIPS).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -235,11 +298,6 @@
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/multimodal/">
-    <span class="title">« </span>
-    <br>
-    <span>Multimodal AI Explained: From Foundation Models to Generalist Agents</span>
-  </a>
   <a class="next" href="http://localhost:1313/posts/resnets/">
     <span class="title"> »</span>
     <br>

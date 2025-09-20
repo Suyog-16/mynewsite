@@ -9,13 +9,6 @@
     <lastBuildDate>Mon, 28 Apr 2025 21:06:20 +0545</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Multimodal AI Explained: From Foundation Models to Generalist Agents</title>
-      <link>http://localhost:1313/posts/multimodal/</link>
-      <pubDate>Mon, 28 Apr 2025 21:06:20 +0545</pubDate>
-      <guid>http://localhost:1313/posts/multimodal/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Understanding Transformer Architecture from First Principles: A Detailed Exploration</title>
       <link>http://localhost:1313/posts/transformer/</link>
       <pubDate>Mon, 28 Apr 2025 21:06:20 +0545</pubDate>
