@@ -1,6 +1,6 @@
 ---
 date : '2025-04-28T21:06:20+05:45'
-draft : False
+draft : True
 title : 'Understanding Transformer Architecture from First Principles: A Detailed Exploration'
 math : True
 author : "Suyog Ghimire"
