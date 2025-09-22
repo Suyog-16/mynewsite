@@ -1,4 +1,4 @@
-baseURL : "https://suyogghimire.netlify.app/"
+baseURL : "https://suyog-ghimire.np.com/"
 languageCode : en-us
 title : "Suyog"
 theme : PaperMod
@@ -16,7 +16,7 @@ params:
     - name: X
       url: "https://twitter.com/__suyog__"
     - name: linkedin
-      url: "https://linkedin.com/"
+      url: "https://www.linkedin.com/in/suyog-ghimire-63394a2b2/"
 
 
        
@@ -51,7 +51,7 @@ menu :
        weight: 30
      - identifier: docs
        name: Resume
-       url: https://example.org
+       url: "https://drive.google.com/file/d/1dSxZsK8xPPDeFpjWan3aMsp-Ak6wfPVS/view"
        weight: 30
      - identifier: projects
        name: Projects
