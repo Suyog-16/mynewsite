@@ -9,7 +9,7 @@ params:
   math: true
   homeInfoParams:
     Title: "Hi,"
-    Content: I'm Suyog Ghimire, a second year Computer Engineering student,Here, I share insights and projects on machine learning, programming, and more. Dive into my blogs for tutorials and technical discussions aimed at making complex topics more accessible.
+    Content: I'm Suyog Ghimire, a second-year Computer Engineering student at Institute of Engineering(IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey so far I'm especially curious about multimodal AI, vision-and-language models, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest.
   socialIcons:
     - name: github
       url: "https://github.com/Suyog-16"

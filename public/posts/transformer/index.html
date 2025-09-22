@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Understanding Transformer Architecture from First Principles: A Detailed Exploration | Suyog</title>
 <meta name="keywords" content="">
-<meta name="description" content="Introduction Transformer Architecture lies at the heart of modern AI models. Nearly all the state-of-the-art large language models(LLMs) like ChatGPT, LLaMa and Gemini ,all of them are built upon the transformer architecture.The transformer architecture was introduced in the paper Attention is all you need 1. Although it is used everywhere these days,it was first introduced for the purpose of language translation but then it was quickly generalized to other task as well.">
+<meta name="description" content="Introduction Transformer Architecture lies at the heart of modern AI models. Nearly all the state-of-the-art large language models(LLMs) like ChatGPT, LLaMa and Gemini ,all of them are built upon the transformer architecture.The transformer architecture was introduced in the paper Attention is all you need [^1]. Although it is used everywhere these days,it was first introduced for the purpose of language translation but then it was quickly generalized to other task as well.">
 <meta name="author" content="Suyog Ghimire">
 <link rel="canonical" href="http://localhost:1313/posts/transformer/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fdb895230aa694f0ea1ac2c71f237858b03c86bfd6209d70d1fed9d97c815a4.css" integrity="sha256-j9uJUjCqaU8OoawscfI3hYsDyGv9YgnXDR/tnZfIFaQ=" rel="preload stylesheet" as="style">
@@ -154,7 +154,7 @@
     <h1 class="post-title entry-hint-parent">
       Understanding Transformer Architecture from First Principles: A Detailed Exploration
     </h1>
-    <div class="post-meta"><span title='2025-04-28 21:06:20 +0545 +0545'>April 28, 2025</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Suyog Ghimire
+    <div class="post-meta"><span title='2025-04-28 21:06:20 +0545 +0545'>April 28, 2025</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;Suyog Ghimire
 
 </div>
   </header> <div class="toc">
@@ -185,21 +185,23 @@
                     <a href="#" aria-label="Why does this intensity pattern matters?">Why does this intensity pattern matters?</a></li></ul>
                 </li>
                 <li>
-                    <a href="#self-attention-mechanism" aria-label="Self-Attention Mechanism">Self-Attention Mechanism</a></li>
+                    <a href="#self-attention-mechanism" aria-label="Self-Attention Mechanism">Self-Attention Mechanism</a><ul>
+                        
+                <li>
+                    <a href="#visualising-self-attention" aria-label="Visualising self-attention">Visualising self-attention</a></li>
+                <li>
+                    <a href="#mathematical-implementation-of-single-head-self-attention" aria-label="Mathematical implementation of single head self-attention">Mathematical implementation of single head self-attention</a></li>
+                <li>
+                    <a href="#problem-with-single-head-self-attention" aria-label="Problem with single-head self-attention">Problem with single-head self-attention</a></li></ul>
+                </li>
                 <li>
                     <a href="#multi-head-attention" aria-label="Multi-Head Attention">Multi-Head Attention</a><ul>
                         
                 <li>
-                    <a href="#layer-normalization" aria-label="Layer Normalization">Layer Normalization</a></li>
-                <li>
-                    <a href="#residual-connection" aria-label="Residual Connection">Residual Connection</a></li>
-                <li>
-                    <a href="#linear-layer" aria-label="Linear Layer">Linear Layer</a></li></ul>
+                    <a href="#self-attention-per-head" aria-label="Self-attention per Head">Self-attention per Head</a></li></ul>
                 </li>
                 <li>
-                    <a href="#toy-example" aria-label="Toy Example">Toy Example</a></li>
-                <li>
-                    <a href="#refrences" aria-label="Refrences">Refrences</a>
+                    <a href="#references" aria-label="References">References</a>
                 </li>
             </ul>
         </div>
@@ -207,7 +209,7 @@
 </div>
 
   <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p>Transformer Architecture lies at the heart of modern AI models. Nearly all the state-of-the-art large language models(LLMs) like ChatGPT, LLaMa and  Gemini ,all of them are built upon the transformer architecture.The transformer architecture was introduced in the paper <strong>Attention is all you need</strong> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Although it is used everywhere these days,it was first introduced for the purpose of language translation but then it was quickly generalized to other task as well.Since then, due to its scalability and self-attention mechanism it has found itself in not just natural language processing(NLP) but also in computer vision,speech and multimodal AI systems.</p>
+<p>Transformer Architecture lies at the heart of modern AI models. Nearly all the state-of-the-art large language models(LLMs) like ChatGPT, LLaMa and  Gemini ,all of them are built upon the transformer architecture.The transformer architecture was introduced in the paper <strong>Attention is all you need</strong> [^1]. Although it is used everywhere these days,it was first introduced for the purpose of language translation but then it was quickly generalized to other task as well.Since then, due to its scalability and self-attention mechanism it has found itself in not just natural language processing(NLP) but also in computer vision,speech and multimodal AI systems.</p>
 <p>In this blog, we will explore the internals of the Transformer Architecture ,with mathematical intuition and understand why it became the backbone of generative AI.</p>
 <h2 id="problems-with-rnns-and-sequence-models">Problems with RNN&rsquo;s and Sequence models<a hidden class="anchor" aria-hidden="true" href="#problems-with-rnns-and-sequence-models">#</a></h2>
 <p>Before transformers, many natural language processing task were done using sequence models like recurrent neural network(RNN&rsquo;s).RNNs had major flaws due to which it was not good enough for most language-based applications.Lets discuss their flaws and how transformer massively improved upon them</p>
@@ -234,16 +236,19 @@ Because of these limitations it was of no use when it came to handling large seq
 <p>Lets look at the Overall architecture of Transformer model and go into each section and dicuss that in detailed later in the blog</p>
 <p><img src="/images/transformers/transformer.png" alt="Description" 
 style="width: 100%; height: 800px; object-fit: cover; border-radius: 8px;"></p>
-<p><sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup><center><i>Transformer Architecture</i></center></p>
+<p>[^1]<center><i>Transformer Architecture</i></center></p>
 <p>Transformer architecture consist of two main components: <strong>encoder</strong> and a <strong>decoder</strong>. The encoder takes in an input sequence(tokens) and converts it into numerical vectors that captures its meaning and relationship with each other. The decoder uses these encoded representations along with the tokens it has already generated to provide us with a probabilty distribution of possible next tokens at each time step.</p>
 <p>We will get into the details of each and every step later in this blog.</p>
 <h2 id="positional-encoding">Positional Encoding<a hidden class="anchor" aria-hidden="true" href="#positional-encoding">#</a></h2>
 <p>Unlike CNNs and RNNs, Transformers which uses self attention  is <strong>Permutation Invaraint</strong> meaning a it doesnt care about what order the tokens came in. It treats them as a bag of vector. For example a input sequence &quot; <strong>Ram pushed Hari</strong>&quot; and &ldquo;<strong>Hari pushed Ram</strong>&rdquo; would look the same to the transformer without positional information.</p>
 <p>To address this we inject position information to the input sequence embeddings before feeding them to the transformer layers.</p>
-<p>We want the model to identify which tokens are nearer and which are futher distant. <strong>Note</strong>: This</p>
+<p>We want the model to identify which tokens are nearer and which are futher distant. <strong>Note</strong>: These are not learnable positional encodings rather static</p>
 <p>Each input token is first mapped to a vector embedding of dimension 512(in the paper)
 <img src="/images/transformers/vector.png" alt="Description" 
-style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;"></p>
+style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;">
+<em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Input vector encodings</i> </center>
+<br>
 <p>Above figure shows how each input token is mapped to a vector of a fixed dimension but it lacks positional information.Its solution lies in adding another vector <strong>positional encoding vector</strong> of same dimension(512) to the original vector embedding.</p>
 <p>$$ E_{final}(pos,token) = E_{word}(token) + PE(pos)$$</p>
 <p>Where:
@@ -265,31 +270,172 @@ $$PE(pos, 2i) = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}})$$</p>
 <br></li>
 <li>$d_{model}$ = embedding dimesion(512)</li>
 </ul>
-<p>So odd dimensions(0,2,4,&hellip;) takes the cosine fourmula whereas even dimension(1,3,5,..) takes sine fourmula</p>
+<p>So odd dimensions(0,2,4,&hellip;) takes the cosine fourmula whereas even dimension(1,3,5,..) takes sine fourmula
+<img src="/images/transformers/pos.png" alt="Description" 
+style="width: 100%; height: 670px; object-fit: cover; border-radius: 8px;">
+<em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Positional encoding calculations</i> </center>
+<br>
 <p>Now the question aries on how does adding the positional encodings generated by these trignometric fourmula help the model gain positional information on input sequence.</p>
 <p><img src="/images/transformers/positional_encoding.webp" alt="Description" 
-style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;"></p>
-<p><em>Credit: <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/">kazemnejad&rsquo;s blog</a>.</em></p>
+style="width: 100%; height: 450px; object-fit: cover; border-radius: 8px;"></p>
+<p><em>Credit: <a href="https://www.scaler.com/topics/nlp/positional-encoding/">sercaler</a>.</em></p>
+<center><i>Position vs  embed_dimension heat map </i> </center>
+<br>
 <p>In the above chart were X-axis represents encoding dimensions and Y-axis represents different position in sequence,a particular cell&rsquo;s intensity is the sine/cosine value.
 we can clearly see a visible pattern in this chart the left side <strong>High intensity changes</strong> creates a checkerboard pattern and on the right side <strong>Smooth intensity changes</strong>creates a smooth gradients.</p>
 <center><h3>Why does this intensity pattern matters?</h3></center>
 <p><strong>Rapid color changes</strong> means that model can distinguish between nearby positions and <strong>smooth color changes</strong> means model understands broad position relationships, with this each position gets a unique fingerprint.</p>
 <p>Different frequencies of sine/cosine functions create the intensity variations you see, giving each position a unqiue pattenr across all dimensions</p>
 <h2 id="self-attention-mechanism">Self-Attention Mechanism<a hidden class="anchor" aria-hidden="true" href="#self-attention-mechanism">#</a></h2>
+<p>Before going deep towards the mathematics of self-attention lets first look self- attention from a higher level.Self attention lets each token look at every other token in the seqeuence and determine how much each if them matters when building new representations.The &ldquo;<strong>self</strong>&rdquo; in self-attention simply refers to the the fact that it uses the surrounding words within the sequence to provide context.This can all be done in parallel which can leverage parallel processing for faster computations.</p>
+<h3 id="visualising-self-attention">Visualising self-attention<a hidden class="anchor" aria-hidden="true" href="#visualising-self-attention">#</a></h3>
+<p>Simply speaking the goal of self attention is to move/change the vector embedding for each token to a embedding vector spcae that better represents the context. For example: we have a word/token &ldquo;<strong>Apple</strong>&rdquo;, now apple has mutilple meanings,it could be the fruit apple or the company apple that makes iphones. Now if we visualize this in a <strong>2-Dimensional vector space</strong> it would probably lean more towards the fruit clusters. Now if theres a context say u ask</p>
+<center><b>"Explain me about the new apple devices."</b></center>
+<p>Now since apple has multiple meanings , since we are talking about the <strong>tech company</strong> &ldquo;Apple&rdquo;.Now the word/token apple must be shifted towards the technological side from the fruits/juices side in the embedding vector space.Below is a 2-Dimensional visualization for this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create word embeddings</span>
+</span></span><span style="display:flex;"><span>xs <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">6.0</span>, <span style="color:#ae81ff">7.5</span>, <span style="color:#ae81ff">8.0</span>]
+</span></span><span style="display:flex;"><span>ys <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">1.2</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">8.0</span>, <span style="color:#ae81ff">7.5</span>, <span style="color:#ae81ff">5.5</span>]
+</span></span><span style="display:flex;"><span>words <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;fruit&#39;</span>, <span style="color:#e6db74">&#39;tree&#39;</span>, <span style="color:#e6db74">&#39;juice&#39;</span>, <span style="color:#e6db74">&#39;mac&#39;</span>, <span style="color:#e6db74">&#39;os&#39;</span>, <span style="color:#e6db74">&#39;app&#39;</span>]
+</span></span><span style="display:flex;"><span>apple <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">4.5</span>], [<span style="color:#ae81ff">6.7</span>, <span style="color:#ae81ff">6.5</span>]]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create figure</span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(ncols<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add titles</span>
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Learned Embedding for &#34;apple&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">without context&#39;</span>)
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;Contextual Embedding for</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;apple&#34; after self-attention&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add trace on plot 2 to show the movement of &#34;apple&#34;</span>
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>scatter(apple[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>], apple[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>], c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>)
+</span></span><span style="display:flex;"><span>ax[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>plot([apple[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span><span style="color:#ae81ff">0.1</span>, apple[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>]],
+</span></span><span style="display:flex;"><span>           [apple[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span><span style="color:#ae81ff">0.1</span>, apple[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>]],
+</span></span><span style="display:flex;"><span>           linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dashed&#39;</span>,
+</span></span><span style="display:flex;"><span>           zorder<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    ax[i]<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>    ax[i]<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Plot word embeddings</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (x, y, word) <span style="color:#f92672">in</span> list(zip(xs, ys, words)):
+</span></span><span style="display:flex;"><span>        ax[i]<span style="color:#f92672">.</span>scatter(x, y, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>        ax[i]<span style="color:#f92672">.</span>text(x<span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span>, y, word)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Plot &#34;apple&#34; vector</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> apple[i][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> apple[i][<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;blue&#39;</span> <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;purple&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ax[i]<span style="color:#f92672">.</span>text(x<span style="color:#f92672">+</span><span style="color:#ae81ff">0.5</span>, y, <span style="color:#e6db74">&#39;apple&#39;</span>)
+</span></span><span style="display:flex;"><span>    ax[i]<span style="color:#f92672">.</span>scatter(x, y, c<span style="color:#f92672">=</span>color, s<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p><img src="/images/transformers/self.png" alt="Description" 
+style="width: 100%; height: 400px; object-fit: cover; border-radius: 8px;">
+<em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Contextual embedding before /after</i> </center>
+<br>
+We can clearly see the token "apple" shift itself according to the context in the vector embedding space due to self-attention.
+<h3 id="mathematical-implementation-of-single-head-self-attention">Mathematical implementation of single head self-attention<a hidden class="anchor" aria-hidden="true" href="#mathematical-implementation-of-single-head-self-attention">#</a></h3>
+<p>Now, we have seen what self-attention is and how it works at a higher level, we will dive deep into how it is implemented mathematically.In this simple case lets consider the sequence we used earlier</p>
+<center><b> "I" "love" "to" "eat" "pizza" </b></center>
+<br>
+then
+sequence length $seq$ = 5 and $d_{model}$= 512(from vanilla transformer)
+<p>we obtain a input embedding matrix after positional encoding step as such:</p>
+<p><img src="/images/transformers/input_embed.png" alt="Description" 
+style="width: 100%; height: 550px; object-fit: cover; border-radius: 8px;">
+<em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Input embedding matrix</i> </center>
+<br>
+here, $$ X\in \mathbb{R}^{5\times512}$$
+<p>for a single head self attention we have to first project the matrix $X$ into three different matrices,<strong>key, query and value</strong>. these are linear projections of input embeddings obtain by mutlipy with <strong>three different weight matrices</strong>
+$$
+W_Q \in \mathbb{R}^{512 \times d_k}$$
+$$W_K \in \mathbb{R}^{512 \times d_k}$$
+$$W_V \in \mathbb{R}^{512 \times d_v}
+$$</p>
+<p>then finally u compute matrices <strong>Q,K,V</strong> by multiply these learnable weight matrices to the input embedding matrix:</p>
+<p>$$ Q = X . W_Q   $$
+$$ K = X . W_K  $$
+$$ V = X . W_V  $$
+then for this case as $X$ is $(5\times512$) we choose
+$$ d_k = d_v = 512$$</p>
+<img src="/images/transformers/projection.png" alt="projection" style="width: 100%; height: auto;"> 
+<p><em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Creation of query,key and Value matrices through linear projection.</i> </center>
+<br>
+<p>The obtained <strong>Query,Key and Value</strong> matrices are now used to calculate the attention score through self-attention fourmula
+$$Attention(Q,K,V) = softmax\Big(\frac{QK^T}{\sqrt{d_k}}\Big) V$$
+From this fourmula,before we get attention scores we first calculate similarity scores between tokens using query and key vectors:
+$$ Similarity = QK^T$$
+Raw similarity scores can be +ve,-ve , large or small, higher similarity means words.token are more related . These similarity scores are scaled then passed through softmax to normalize all scores to sum to <strong>1.0</strong>. It essentially converts raw similarity to probability like weights.</p>
+<p>The output after applying this fourmula would be a attention score matrix of size $5\times 5$. where the attention score determine how much each word/token <strong>pays attention</strong> to every other word including itself.The matrix will look something like this:</p>
+<img src="/images/transformers/attention_output.png" alt="projection" style="width: 100%; height: auto;">
+<p><em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Attention score matrix(approximation only)</i> </center>
+<br>
+<p>Each row become as probability distribution whose sum is <strong>1.0</strong>.Each cell shows attention score between two words</p>
+<p><strong>What we can observe</strong> is that
+every token pays most attention to itself, as seen in the diagonal. we can also see <strong>&lsquo;pizza&rsquo;</strong> has the strongest self-attention and connects strongly to <strong>&rsquo;eat&rsquo;</strong> which shows how model has understood relationships between words, subjects connect to verbs, verbs connect to objects.</p>
+<h3 id="problem-with-single-head-self-attention">Problem with single-head self-attention<a hidden class="anchor" aria-hidden="true" href="#problem-with-single-head-self-attention">#</a></h3>
+<p>Single head works but plateaus in performance as a single head self-attention only limits us to a single view of similarity. Natural language is <strong>rich and ambigiuos</strong> , a single sentence carries multiple layers of information simultaneously such as</p>
+<ul>
+<li>Syntatic strcuture- which words are subject,verbs,objects,etc</li>
+<li>Semantic relationship - which words relate in meaning(&ldquo;dog&rdquo; &ldquo;barks&rdquo;)</li>
+<li>Contextual meanings - sentiment(&ldquo;happy&rdquo; might mean smile)</li>
+</ul>
+<p>A single head cannot capture all these aspect limiting us, so to tackle this problem multi-head attention is used</p>
 <h2 id="multi-head-attention">Multi-Head Attention<a hidden class="anchor" aria-hidden="true" href="#multi-head-attention">#</a></h2>
-<h3 id="layer-normalization">Layer Normalization<a hidden class="anchor" aria-hidden="true" href="#layer-normalization">#</a></h3>
-<h3 id="residual-connection">Residual Connection<a hidden class="anchor" aria-hidden="true" href="#residual-connection">#</a></h3>
-<h3 id="linear-layer">Linear Layer<a hidden class="anchor" aria-hidden="true" href="#linear-layer">#</a></h3>
-<h2 id="toy-example">Toy Example<a hidden class="anchor" aria-hidden="true" href="#toy-example">#</a></h2>
-<h2 id="refrences">Refrences<a hidden class="anchor" aria-hidden="true" href="#refrences">#</a></h2>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). <em>Attention is all you need</em>. In Advances in Neural Information Processing Systems (NeurIPS).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Since, we already discuss the problem with single head self-attention lets discuss how multi-head attention mechanism works.</p>
+<p><strong>Multi-Head Attention</strong> splits the attention mechanims into $H$(H=8 in paper) independent heads, each learning its own smaller set of learnable parameters in parallel and concating them at last.Each head works in a smaller subspace
+$$ d_k = d_v = \frac{d_{model}}{h} = 512/8 = 64$$
+dimension of each head becomes 64.The spliting happens in the following fashion</p>
+<img src="/images/transformers/multihead.png" alt="projection" style="width: 100%; height: auto;">
+<p><em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Multi-head spliting</i> </center>
+<br>
+For multi-head attention, we divide each of Q,K,and V into h = 8 heads. Each head operated on a smaller dimension so,
+<p>$$ Q \to [Q^{(1)},Q^{(2)},&hellip;.,Q^{(8)}]  , Q^{(i)}\in \mathbb{R}^{5\times 64}$$
+Similarly for K,V</p>
+<h3 id="self-attention-per-head">Self-attention per Head<a hidden class="anchor" aria-hidden="true" href="#self-attention-per-head">#</a></h3>
+<p>$$  Attention(Q^{(i)},K^{(i)},V^{(i)})= softmax\Big(\frac{Q^{(i)}{K^{(i)}}^T}{\sqrt{64}}\Big)V^{(i)} $$</p>
+<p>Output of each head:
+$$ H^{(i)} \in \mathbb{R}^{5\times 64} $$</p>
+<img src="/images/transformers/single_head.png" alt="projection" style="width: 100%; height: auto;">
+<p><em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Calculation of attention score for single head</i> </center>
+<br>
+<p>At last all output heads are concatenated:
+$$ H = [H^{(1)} | H^{(2)}| &hellip;..|H^{(8)}]$$
+where $ H \in \mathbb{R}^{5\times 512}$</p>
+<img src="/images/transformers/concat.png" alt="projection" style="width: 100%; height: auto;">
+<p><em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Concatenation of all heads</i> </center>
+<br>
+<p>Finally a linear projection is applied to bring to the original model dimension:
+$$ Multihead(X) = H W_o$$</p>
+<p>where:
+$ W_o \in \mathbb{R}^{512\times512} $</p>
+<img src="/images/transformers/final_projection.png" alt="projection" style="width: 100%; height: auto;">
+<p><em>Credit: <a href="">Author</a>.</em></p>
+<center><i>Final projection</i> </center>
+<br>
+<p>Thus, the final output of multi-head attention is obtained. The output dimensions might look the same as single-head self attention but it now carries a deeper more rich representation of input which helps to improve its performance even further.But this isnt the full picture, we still need to look at feed-forward layers,resisdual connection ,layer normalization.</p>
+<p>To be continued&hellip;.</p>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+<ul>
+<li>
+<p>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). <em>Attention is all you need</em>. In Advances in Neural Information Processing Systems (NeurIPS).</p>
 </li>
-</ol>
-</div>
+<li>
+<p>Smith, B. (2024, February 9). <em>Contextual transformer embeddings using self-attention explained with diagrams and Python code</em>. Towards Data Science. <a href="https://towardsdatascience.com/contextual-transformer-embeddings-using-self-attention-explained-with-diagrams-and-python-code-d7a9f0f4d94e/">https://towardsdatascience.com/contextual-transformer-embeddings-using-self-attention-explained-with-diagrams-and-python-code-d7a9f0f4d94e/</a></p>
+</li>
+</ul>
 
 
   </div>
