@@ -311,8 +311,6 @@ $ W_o \in \mathbb{R}^{512\times512} $
 
 Thus, the final output of multi-head attention is obtained. The output dimensions might look the same as single-head self attention but it now carries a deeper more rich representation of input which helps to improve its performance even further.But this isnt the full picture, we still need to look at feed-forward layers,resisdual connection ,layer normalization.
 
-To be continued....
-
 ## References
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). *Attention is all you need*. In Advances in Neural Information Processing Systems (NeurIPS).
 
