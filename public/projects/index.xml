@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Projects on Suyog</title>
+    <link>http://localhost:1313/projects/</link>
+    <description>Recent content in Projects on Suyog</description>
+    <generator>Hugo -- 0.125.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vision-Language Model Alignment Research</title>
+      <link>http://localhost:1313/projects/vision-language-alignment/</link>
+      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/vision-language-alignment/</guid>
+      <description>Investigating novel techniques for aligning visual encoders with large language models using minimal paired data. This research focuses on improving zero-shot performance in low-resource specialized domains.</description>
+    </item>
+  </channel>
+</rss>

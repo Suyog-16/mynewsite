@@ -7,9 +7,18 @@ params:
 
 
   math: true
-  homeInfoParams:
-    Title: "Hi,"
-    Content: I'm Suyog Ghimire, a second-year Computer Engineering student at Institute of Engineering(IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey so far I'm especially curious about multimodal AI, vision-and-language models, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest.
+  # homeInfoParams:
+  #   Title: "Hi,"
+  #   Content: I'm Suyog Ghimire, a second-year Computer Engineering student at Institute of Engineering(IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey so far I'm especially curious about multimodal AI, vision-and-language models, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest.
+
+  profileMode:
+    enabled: true
+    title: "Suyog Ghimire"
+    subtitle: "I'm Suyog Ghimire, a second-year Computer Engineering student at Institute of Engineering(IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey so far. I'm especially curious about multimodal AI, vision-and-language models, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest."
+    imageUrl: "https://framerusercontent.com/images/QUC1DPYvY9k6q9wes1rKIadFOFY.png"
+    imageWidth: 250
+    imageHeight: 250
+    imageTitle: "Suyog"
   socialIcons:
     - name: github
       url: "https://github.com/Suyog-16"
@@ -45,6 +54,10 @@ params:
  
 menu :
   main:
+     - identifier: blogs
+       name: Blogs
+       url: /posts/
+       weight: 10
      - identifier: archives
        name : Archives
        url: /archives/
@@ -55,7 +68,7 @@ menu :
        weight: 30
      - identifier: projects
        name: Projects
-       url: "https://github.com/Suyog-16"
+       url: /projects/
        weight: 30
 markup:
   goldmark:
