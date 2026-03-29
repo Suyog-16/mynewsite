@@ -1,17 +1,9 @@
 {{- with site.Params.homeInfoParams }}
 <article class="first-entry home-info">
-   
-
-    <br>
-    
-    <img title="a title" alt="Alt text" src="{{ "images/profile_pic.jpg" | absURL }}" width="100%" height="auto">
-    
-
-   
     <header class="entry-header">
-        <h2>{{ .Title | markdownify }}</h2>
+        <h1>{{ .Title | markdownify }}</h1>
     </header>
-    <div class="entry-content">
+    <div class="entry-content home-content">
         {{ .Content | markdownify }}
     </div>
     <footer class="entry-footer">

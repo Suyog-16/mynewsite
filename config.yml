@@ -7,18 +7,12 @@ params:
 
 
   math: true
-  # homeInfoParams:
-  #   Title: "Hi,"
-  #   Content: I'm Suyog Ghimire, a second-year Computer Engineering student at Institute of Engineering(IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey so far I'm especially curious about multimodal AI, vision-and-language models, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest.
+  homeInfoParams:
+    Title: "Suyog Ghimire"
+    Content: I'm a second-year Computer Engineering student at Institute of Engineering (IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey. I'm especially curious about **multimodal AI**, **vision-language models**, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest.
 
   profileMode:
-    enabled: true
-    title: "Suyog Ghimire"
-    subtitle: "I'm Suyog Ghimire, a second-year Computer Engineering student at Institute of Engineering(IOE), Paschimanchal campus. I write blogs as a way to learn and document my journey so far. I'm especially curious about multimodal AI, vision-and-language models, and how machines can connect perception with understanding. Along the way, I also share thoughts on programming, machine learning, and anything else that sparks my interest."
-    imageUrl: "images/profile_pic.jpg"
-    imageWidth: 250
-    imageHeight: 250
-    imageTitle: "Suyog"
+    enabled: false
   socialIcons:
     - name: github
       url: "https://github.com/Suyog-16"
@@ -54,6 +48,10 @@ params:
  
 menu :
   main:
+     - identifier: home
+       name: Home
+       url: /
+       weight: 1
      - identifier: blogs
        name: Blogs
        url: /posts/
