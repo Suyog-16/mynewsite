@@ -8,7 +8,7 @@
   {{- end }}
 </header>
 <div class="project-grid">
-  {{- range .Pages }}
+  {{- range .Pages.Reverse }}
   <div class="project-card">
     <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
     <div class="project-card-header">

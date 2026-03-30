@@ -2,11 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Projects on Suyog</title>
-    <link>http://localhost:1313/projects/</link>
+    <link>https://suyog-ghimire.com.np/projects/</link>
     <description>Recent content in Projects on Suyog</description>
     <generator>Hugo -- 0.125.7</generator>
     <language>en-us</language>
-    <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://suyog-ghimire.com.np/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NyaySathi: Nepal Legal Chatbot</title>
+      <link>https://suyog-ghimire.com.np/projects/nepal-legal-chatbot/</link>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://suyog-ghimire.com.np/projects/nepal-legal-chatbot/</guid>
+      <description>A Retrieval-Augmented Generation (RAG) legal assistant for Nepal that answers law-related questions with concise explanations and citations from official legal documents.</description>
+    </item>
+    <item>
+      <title>Retinal Vessel Segmentation with U-Net</title>
+      <link>https://suyog-ghimire.com.np/projects/retinal-vessel-segmentation/</link>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://suyog-ghimire.com.np/projects/retinal-vessel-segmentation/</guid>
+      <description>A medical image segmentation project using a custom U-Net on DRIVE retinal images, with Dice and IoU based evaluation and Streamlit inference UI.</description>
+    </item>
+    <item>
+      <title>RSICD Remote Sensing Image Captioning</title>
+      <link>https://suyog-ghimire.com.np/projects/rsicd-image-captioning/</link>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://suyog-ghimire.com.np/projects/rsicd-image-captioning/</guid>
+      <description>An encoder-decoder image captioning study on RSICD comparing CNN+LSTM and CNN+Transformer approaches for satellite imagery understanding.</description>
+    </item>
+    <item>
+      <title>Uncertainty-Aware Fine-Tuning for LLMs</title>
+      <link>https://suyog-ghimire.com.np/projects/uncertainty-aware-llms/</link>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://suyog-ghimire.com.np/projects/uncertainty-aware-llms/</guid>
+      <description>A fine-tuning experiment on Llama 3.2 1B that reduces hallucinations by training the model to abstain with &amp;lsquo;I don&amp;rsquo;t know&amp;rsquo; when uncertain.</description>
+    </item>
   </channel>
 </rss>
